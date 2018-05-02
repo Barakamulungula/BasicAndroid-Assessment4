@@ -1,5 +1,6 @@
 package com.example.rodneytressler.week4assessment;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,9 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         }
 
         public void bindPlayer(Player player) {
-
+            playerTeam.setText(player.getTeam());
+            playerName.setText(player.getName());
+            playerNumber.setText(player.getNumber()+"");
         }
     }
 }

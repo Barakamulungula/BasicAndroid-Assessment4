@@ -1,8 +1,11 @@
 package com.example.rodneytressler.week4assessment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_add_player)
     protected void onAddPlayerButtonClicked() {
+        String name = nameInput.getText().toString();
+        String team = teamInput.getText().toString();
+        String playerNumber = numberInput.getText().toString();
+        if(!name.isEmpty() && !team.isEmpty() && !playerNumber.isEmpty()){
+            playerList.add(new Player(name,Integer.parseInt(playerNumber),team));
+            Toast.makeText(this, "player added", Toast.LENGTH_SHORT).show();
+            nameInput.setText("");
+            teamInput.setText("");
+            numberInput.setText("");
+        }else{
+            Toast.makeText(this, "All input fields required", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -35,7 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_view_players)
     protected void onViewPlayersButtonClicked() {
-
+        if(!playerList.isEmpty()){
+            Intent intent = new Intent(MainActivity.this, PlayersActivity.class);
+            intent.putParcelableArrayListExtra(TAG, (ArrayList<? extends Parcelable>) playerList);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Player list empty", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
